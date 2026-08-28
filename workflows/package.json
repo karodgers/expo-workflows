@@ -1,0 +1,42 @@
+{
+  "name": "nova-expo-workflows",
+  "version": "1.1.0",
+  "description": "Guided Expo and EAS workflow automation for Nova projects.",
+  "bin": {
+    "nova-workflows": "./run.sh"
+  },
+  "files": [
+    "*.sh",
+    "lib",
+    "templates",
+    "test",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "check": "bash -n ./*.sh ./lib/*.sh ./test/*.sh && node --check ./lib/*.js",
+    "test": "./test/run.sh",
+    "validate": "npm run check && npm test"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "nova": {
+    "minimumExpoSdk": 55,
+    "minimumEasCli": "16.18.0",
+    "pinned": {
+      "easCli": "^22.2.0",
+      "expoDoctor": "^1.20.3"
+    }
+  },
+  "keywords": [
+    "expo",
+    "eas",
+    "react-native",
+    "workflow"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

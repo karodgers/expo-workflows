@@ -1,0 +1,229 @@
+{
+  "name": "nova-expo",
+  "displayName": "Nova Expo",
+  "description": "Run the complete Expo and EAS release workflow from an organized VS Code project dashboard.",
+  "version": "0.3.6",
+  "publisher": "nova-expo-toolkit",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karodgers/expo-workflows.git"
+  },
+  "bugs": {
+    "url": "https://github.com/karodgers/expo-workflows/issues"
+  },
+  "homepage": "https://github.com/karodgers/expo-workflows#readme",
+  "keywords": [
+    "expo",
+    "react-native",
+    "eas",
+    "android",
+    "ios"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:novaExpo.dashboard",
+    "workspaceContains:**/app.json",
+    "workspaceContains:**/app.config.js",
+    "workspaceContains:**/app.config.ts"
+  ],
+  "main": "./dist/extension.js",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Nova Expo reads the project configuration in an untrusted workspace but refuses to run any Expo, EAS, or package-manager command until the workspace is trusted."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "Nova Expo requires a local project directory and local command execution."
+    }
+  },
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "novaExpo",
+          "title": "Nova Expo",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "novaExpo": [
+        {
+          "type": "webview",
+          "id": "novaExpo.dashboard",
+          "name": "Nova Expo"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "novaExpo.refresh",
+        "title": "Nova Expo: Refresh Dashboard",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "novaExpo.dev.start",
+        "title": "Nova Expo: Start Dev Server",
+        "icon": "$(play)"
+      },
+      {
+        "command": "novaExpo.doctor",
+        "title": "Nova Expo: Run Doctor",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "novaExpo.doctor.fix",
+        "title": "Nova Expo: Fix Expo Dependencies",
+        "icon": "$(wrench)"
+      },
+      {
+        "command": "novaExpo.dependencies.install",
+        "title": "Nova Expo: Install Project Dependencies",
+        "icon": "$(package)"
+      },
+      {
+        "command": "novaExpo.build",
+        "title": "Nova Expo: Build",
+        "icon": "$(package)"
+      },
+      {
+        "command": "novaExpo.submit",
+        "title": "Nova Expo: Submit",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "novaExpo.update.publish",
+        "title": "Nova Expo: Publish Update",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "novaExpo.releaseCheck",
+        "title": "Nova Expo: Check Production Readiness",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "novaExpo.project.select",
+        "title": "Nova Expo: Select Project",
+        "icon": "$(folder-active)"
+      },
+      {
+        "command": "novaExpo.project.create",
+        "title": "Nova Expo: Create New Project",
+        "icon": "$(new-folder)"
+      },
+      {
+        "command": "novaExpo.project.openConfig",
+        "title": "Nova Expo: Open App Configuration",
+        "icon": "$(go-to-file)"
+      },
+      {
+        "command": "novaExpo.toolkitAction",
+        "title": "Nova Expo: Run Workflow",
+        "icon": "$(run-all)"
+      },
+      {
+        "command": "novaExpo.task.show",
+        "title": "Nova Expo: Show Current Task",
+        "icon": "$(output)"
+      },
+      {
+        "command": "novaExpo.task.stop",
+        "title": "Nova Expo: Stop Current Task",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "novaExpo.moreActions",
+        "title": "Nova Expo: Browse All Workflows",
+        "icon": "$(list-selection)"
+      },
+      {
+        "command": "novaExpo.docs.open",
+        "title": "Nova Expo: Open Expo Documentation",
+        "icon": "$(book)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "novaExpo.refresh",
+          "when": "view == novaExpo.dashboard",
+          "group": "navigation@1"
+        },
+        {
+          "command": "novaExpo.moreActions",
+          "when": "view == novaExpo.dashboard",
+          "group": "navigation@2"
+        },
+        {
+          "command": "novaExpo.project.select",
+          "when": "view == novaExpo.dashboard",
+          "group": "navigation@3"
+        },
+        {
+          "command": "novaExpo.project.create",
+          "when": "view == novaExpo.dashboard && !novaExpo.taskRunning",
+          "group": "navigation@4"
+        },
+        {
+          "command": "novaExpo.task.stop",
+          "when": "view == novaExpo.dashboard && novaExpo.taskRunning",
+          "group": "navigation@5"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Nova Expo",
+      "properties": {
+        "novaExpo.toolkitPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Absolute path to a local Nova Expo Toolkit workflows directory. Leave empty to use the copy bundled with this extension. This setting selects which scripts are executed, so only your own user or remote settings can set it: a workspace value is ignored, and a relative path is refused."
+        },
+        "novaExpo.shellPath": {
+          "type": "string",
+          "default": "bash",
+          "scope": "machine",
+          "description": "Bash-compatible shell used to run Nova Expo workflows. On Windows, configure Git Bash or a WSL shell."
+        },
+        "novaExpo.nodePath": {
+          "type": "string",
+          "default": "node",
+          "scope": "machine",
+          "description": "Node.js 22.13 or newer executable used by the Nova Expo project initializer."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "copy-workflows": "node scripts/copy-workflows.js",
+    "compile": "npm run copy-workflows && node esbuild.js",
+    "watch": "npm run copy-workflows && node esbuild.js --watch",
+    "package": "npm run copy-workflows && node esbuild.js --production",
+    "check": "tsc --noEmit && tsc -p tsconfig.webview.json",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test:compile": "tsc -p tsconfig.test.json",
+    "test": "npm run check && npm run test:compile && node --test .test-dist/test/*.test.js",
+    "vscode:prepublish": "npm run package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "1.94.0",
+    "@vscode/codicons": "^0.0.46-24",
+    "esbuild": "^0.23.0",
+    "prettier": "3.9.6",
+    "typescript": "^5.5.0"
+  }
+}

@@ -1,0 +1,24 @@
+.vscode/**
+src/**
+scripts/**
+out/**
+.test-dist/**
+test/**
+tsconfig.test.json
+tsconfig.webview.json
+esbuild.js
+tsconfig.json
+**/*.map
+.gitignore
+.prettierrc.json
+.prettierignore
+
+# Build inputs, not shipped content: copy-workflows.js stages both into
+# resources/ during compile, and packaging them here as well would put a second
+# copy of every script inside the .vsix.
+workflows/**
+nova-expo/**
+
+# Repository tooling, not extension content.
+commit.sh
+.github/**

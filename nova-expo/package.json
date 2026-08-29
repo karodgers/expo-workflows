@@ -1,0 +1,52 @@
+{
+  "name": "create-nova-expo-app",
+  "version": "1.1.3",
+  "description": "Initialize a production-ready Expo project with Nova's standard dependency stack.",
+  "type": "commonjs",
+  "bin": {
+    "nova-expo": "./bin/nova-expo.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "template",
+    "skills",
+    "husky",
+    "scripts",
+    "setup-project.sh",
+    "CLAUDE.md",
+    "eas.json",
+    "eslintignore",
+    "eslintrc.js",
+    "jest.config.js",
+    "jest.setup.js",
+    "LICENSE",
+    "prettierignore",
+    "prettierrc.js",
+    "structure.sh"
+  ],
+  "scripts": {
+    "check": "node --check bin/nova-expo.js && node --check lib/*.js",
+    "setup": "node bin/nova-expo.js --interactive",
+    "test": "node --test",
+    "validate": "npm run check && npm test"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "nova": {
+    "pinned": {
+      "expoDoctor": "^1.20.3"
+    }
+  },
+  "keywords": [
+    "expo",
+    "react-native",
+    "scaffold",
+    "initializer"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

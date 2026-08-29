@@ -21,3 +21,6 @@ nova-expo/**
 
 # Repository tooling, not extension content.
 .github/**
+
+# Internal development notes, not part of the public package.
+FAILURE-MODES.md

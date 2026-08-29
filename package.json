@@ -2,6 +2,7 @@
   "name": "nova-expo",
   "displayName": "Nova Expo",
   "description": "Run the complete Expo and EAS release workflow from an organized VS Code project dashboard.",
+  "icon": "resources/logo.png",
   "version": "0.3.6",
   "publisher": "karodgers",
   "private": true,

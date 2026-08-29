@@ -1,0 +1,68 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.expo/
+android/
+ios/
+web-build/
+
+# Cache directories
+.cache/
+*.cache
+
+# Coverage reports
+coverage/
+
+# Generated files
+*.min.js
+*.bundle.js
+*.generated.ts
+*.generated.tsx
+
+# Lock files (formatted by package managers)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Binary files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.svg
+*.woff
+*.woff2
+*.ttf
+*.eot
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+
+# Git
+.git/
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.*
+
+# Temporary files
+tmp/
+temp/
+
+# Metro bundler
+.metro-health-check*
+
+# Expo
+.expo-shared/

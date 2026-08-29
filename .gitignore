@@ -6,3 +6,6 @@ resources/workflows/
 resources/codicons/
 resources/nova-expo/
 *.vsix
+
+# Internal
+FAILURE-MODES.md

@@ -3,7 +3,7 @@
   "displayName": "Nova Expo",
   "description": "Run the complete Expo and EAS release workflow from an organized VS Code project dashboard.",
   "version": "0.3.6",
-  "publisher": "nova-expo-toolkit",
+  "publisher": "karodgers",
   "private": true,
   "license": "MIT",
   "repository": {

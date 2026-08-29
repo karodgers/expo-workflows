@@ -15,7 +15,7 @@ export function registerDashboardCommands(context: CommandContext): vscode.Dispo
     vscode.commands.registerCommand('novaExpo.settings.open', () =>
       vscode.commands.executeCommand(
         'workbench.action.openSettings',
-        '@ext:nova-expo-toolkit.nova-expo',
+        '@ext:karodgers.nova-expo',
       ),
     ),
     vscode.commands.registerCommand('novaExpo.workspace.trust', () =>

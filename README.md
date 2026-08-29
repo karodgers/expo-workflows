@@ -11,6 +11,7 @@ memorizing CLI commands.
 
 ## Contents
 
+- [Live preview](#live-preview)
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
@@ -21,6 +22,13 @@ memorizing CLI commands.
 - [Development](#development)
 - [Contributing](#contributing)
 - [License](#license)
+
+## Live preview
+
+| Create a project | Project dashboard |
+| --- | --- |
+| <img src="https://raw.githubusercontent.com/karodgers/expo-workflows/main/media/create-project.gif" alt="Creating a new Expo project from the Nova Expo sidebar: naming the folder, choosing an Expo SDK, and selecting optional packages" width="420"> | <img src="https://raw.githubusercontent.com/karodgers/expo-workflows/main/media/dashboard.gif" alt="The Nova Expo dashboard showing project status, ship cycle actions, build profiles, and the searchable workflow catalog" width="420"> |
+| Name the folder, pick an Expo SDK, and choose optional packages. | Ship-cycle actions, build profiles, and 40+ searchable workflows. |
 
 ## Features
 

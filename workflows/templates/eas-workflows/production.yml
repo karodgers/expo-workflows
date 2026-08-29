@@ -1,0 +1,88 @@
+name: Production release
+
+on:
+  push:
+    branches: ['release/*']
+  workflow_dispatch: {}
+
+jobs:
+  validate:
+    name: Validate project
+    steps:
+      - uses: eas/checkout
+      - uses: eas/install_node_modules
+      - run: npm run validate
+
+  fingerprint:
+    name: Fingerprint native projects
+    needs: [validate]
+    type: fingerprint
+    environment: production
+
+  get_android_build:
+    name: Find compatible Android build
+    needs: [fingerprint]
+    type: get-build
+    params:
+      fingerprint_hash: ${{ needs.fingerprint.outputs.android_fingerprint_hash }}
+      profile: production
+
+  get_ios_build:
+    name: Find compatible iOS build
+    needs: [fingerprint]
+    type: get-build
+    params:
+      fingerprint_hash: ${{ needs.fingerprint.outputs.ios_fingerprint_hash }}
+      profile: production
+
+  build_android:
+    name: Build Android
+    needs: [get_android_build]
+    if: ${{ !needs.get_android_build.outputs.build_id }}
+    type: build
+    params:
+      platform: android
+      profile: production
+
+  build_ios:
+    name: Build iOS
+    needs: [get_ios_build]
+    if: ${{ !needs.get_ios_build.outputs.build_id }}
+    type: build
+    params:
+      platform: ios
+      profile: production
+
+  submit_android:
+    name: Submit new Android build
+    needs: [build_android]
+    type: submit
+    params:
+      build_id: ${{ needs.build_android.outputs.build_id }}
+
+  submit_ios:
+    name: Submit new iOS build
+    needs: [build_ios]
+    type: submit
+    params:
+      build_id: ${{ needs.build_ios.outputs.build_id }}
+
+  publish_android_update:
+    name: Publish Android update when a compatible build exists
+    needs: [get_android_build]
+    if: ${{ needs.get_android_build.outputs.build_id }}
+    type: update
+    environment: production
+    params:
+      branch: production
+      platform: android
+
+  publish_ios_update:
+    name: Publish iOS update when a compatible build exists
+    needs: [get_ios_build]
+    if: ${{ needs.get_ios_build.outputs.build_id }}
+    type: update
+    environment: production
+    params:
+      branch: production
+      platform: ios

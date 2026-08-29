@@ -1,0 +1,26 @@
+name: Android end-to-end tests
+
+on:
+  pull_request:
+    branches: ['*']
+  workflow_dispatch: {}
+
+jobs:
+  build_android:
+    name: Build Android test app
+    type: build
+    params:
+      platform: android
+      profile: e2e-test
+
+  maestro_test:
+    name: Run Maestro tests
+    needs: [build_android]
+    type: maestro
+    environment: preview
+    runs_on: linux-medium-nested-virtualization
+    params:
+      build_id: ${{ needs.build_android.outputs.build_id }}
+      flow_path: .maestro
+      retries: 1
+      record_screen: true

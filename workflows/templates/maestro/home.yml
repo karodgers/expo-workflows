@@ -1,0 +1,5 @@
+appId: __APP_ID__
+---
+- launchApp:
+    clearState: true
+- assertVisible: 'Your Expo project is ready.'

@@ -1,0 +1,18 @@
+node_modules/
+dist/
+out/
+.test-dist/
+*.vsix
+
+# Build inputs copied verbatim into resources/ at compile time. Both are
+# separate projects with their own formatting conventions, so this repo formats
+# the extension only.
+workflows/
+nova-expo/
+resources/
+
+package-lock.json
+
+# A single inert CSS string. Prettier would reflow the stylesheet inside the
+# template literal into one long line per rule and lose the authored grouping.
+src/dashboardStyles.ts

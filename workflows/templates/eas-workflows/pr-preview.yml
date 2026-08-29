@@ -1,0 +1,26 @@
+name: Pull request preview
+
+on:
+  pull_request:
+    branches: ['*']
+
+jobs:
+  validate:
+    name: Validate project
+    steps:
+      - uses: eas/checkout
+      - uses: eas/install_node_modules
+      - run: npm run validate
+
+  publish_preview:
+    name: Publish preview update
+    needs: [validate]
+    type: update
+    environment: preview
+    params:
+      channel: preview
+
+  comment:
+    name: Add preview link to pull request
+    needs: [publish_preview]
+    type: github-comment

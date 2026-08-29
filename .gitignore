@@ -9,3 +9,7 @@ resources/nova-expo/
 
 # Internal
 FAILURE-MODES.md
+
+# Source screen recordings. Only the generated GIFs in media/ are committed;
+# the raw captures are large and are not needed to build or publish.
+media/source/

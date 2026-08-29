@@ -24,3 +24,7 @@ nova-expo/**
 
 # Internal development notes, not part of the public package.
 FAILURE-MODES.md
+
+# Demo media. The marketplace listing loads these over https from the
+# repository, so shipping them here would only inflate the .vsix.
+media/**

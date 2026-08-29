@@ -13,10 +13,7 @@ export function registerDashboardCommands(context: CommandContext): vscode.Dispo
   return [
     vscode.commands.registerCommand('novaExpo.refresh', () => dashboard.refresh()),
     vscode.commands.registerCommand('novaExpo.settings.open', () =>
-      vscode.commands.executeCommand(
-        'workbench.action.openSettings',
-        '@ext:karodgers.nova-expo',
-      ),
+      vscode.commands.executeCommand('workbench.action.openSettings', '@ext:karodgers.nova-expo'),
     ),
     vscode.commands.registerCommand('novaExpo.workspace.trust', () =>
       vscode.commands.executeCommand('workbench.trust.manage'),

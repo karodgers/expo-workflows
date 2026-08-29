@@ -282,7 +282,8 @@ export const DASHBOARD_STYLES = `
   }
   .empty > .codicon { font-size: 30px; opacity: .75; }
   .empty-title { color: var(--vscode-foreground); font-size: 14px; font-weight: 600; }
-  .empty .primary-button { margin-top: 5px; }
+  .empty .prompt-actions { margin-top: 15px; align-items: stretch; }
+  .empty .prompt-actions > button { flex: 1; width: auto; white-space: nowrap; }
   .screen-header { display: flex; align-items: center; gap: 8px; margin: 1px 0 12px; }
   .screen-title { flex: 1; font-size: 13px; font-weight: 650; }
   .screen-subtitle { color: var(--vscode-descriptionForeground); font-size: 10px; }
@@ -413,5 +414,6 @@ export const DASHBOARD_STYLES = `
   .recovery-action .codicon { margin-top: 2px; color: var(--vscode-textLink-foreground); }
   .recovery-description { display: block; margin-top: 2px; color: var(--vscode-descriptionForeground); font-size: 10px; }
   @media (max-width: 220px) { .action-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 300px) { .empty .prompt-actions { flex-direction: column; } }
   @media (prefers-reduced-motion: reduce) { .loading-bar::after { animation: none; width: 100%; } }
 `;

@@ -1,0 +1,47 @@
+#!/bin/sh
+# Commit Message Hook
+# This hook validates commit messages follow conventional commit format
+
+# Exit on any error
+set -e
+
+# Read the commit message
+commit_msg=$(cat "$1")
+
+# Define the conventional commit pattern
+# Format: type(scope?): description
+# Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+pattern="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9-]+\))?: .{1,100}$"
+
+# Check if commit message matches pattern
+if ! echo "$commit_msg" | grep -Eq "$pattern"; then
+  echo ""
+  echo "Invalid commit message format!"
+  echo ""
+  echo "Your commit message:"
+  echo "  $commit_msg"
+  echo ""
+  echo "Expected format: type(scope?): description"
+  echo ""
+  echo "Valid types:"
+  echo "  feat     - A new feature"
+  echo "  fix      - A bug fix"
+  echo "  docs     - Documentation only changes"
+  echo "  style    - Code style changes (formatting, etc)"
+  echo "  refactor - Code refactoring (no feature/fix)"
+  echo "  perf     - Performance improvements"
+  echo "  test     - Adding or updating tests"
+  echo "  build    - Build system or dependencies"
+  echo "  ci       - CI/CD configuration"
+  echo "  chore    - Other changes (maintenance)"
+  echo "  revert   - Revert a previous commit"
+  echo ""
+  echo "Examples:"
+  echo "  feat(auth): add login functionality"
+  echo "  fix: resolve navigation crash"
+  echo "  docs(readme): update installation steps"
+  echo ""
+  exit 1
+fi
+
+echo "Commit message format is valid!"

@@ -1,59 +1,107 @@
-# Nova Expo for VS Code
+# Nova Expo
+
+[![CI](https://github.com/karodgers/expo-workflows/actions/workflows/ci.yml/badge.svg)](https://github.com/karodgers/expo-workflows/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![VS Code](https://img.shields.io/badge/VS%20Code-%5E1.94.0-007ACC?logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
 
 Nova Expo turns the Expo and EAS release lifecycle into an organized VS Code
-workflow. Use the Activity Bar dashboard to move from local development through
-builds, updates, store submission, and production checks without memorizing CLI
-commands.
+workflow. Use the Activity Bar dashboard to move from local development
+through builds, updates, store submission, and production checks without
+memorizing CLI commands.
 
-## What the dashboard provides
+## Contents
 
-- guided Nova Expo project creation with SDK, package, and validation choices;
-- automatic Expo project discovery at the workspace root and in monorepos;
-- an always-available project switcher for workspace apps or another folder;
-- guided development, build, update, submit, and release-readiness flows;
-- build profiles and project configuration at a glance;
-- more than 40 searchable workflows grouped by purpose;
-- cancellable live output for deterministic tasks;
-- real integrated terminals for login, credentials, and other interactive EAS
-  workflows;
-- confirmation before project-changing or remote release operations;
-- retained task output and stop controls for persistent development processes;
-- context-aware failure recovery links in notifications and retained task
-  output;
-- guided next-step notices for dependency installation and EAS onboarding.
-- a retained Open Project action when the new-project workflow completes.
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Getting started](#getting-started)
+- [Settings](#settings)
+- [Execution model](#execution-model)
+- [Security and privacy](#security-and-privacy)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
 
-Open the **Nova Expo** icon in the Activity Bar. The extension finds every local
-`package.json` that declares `expo`, excluding generated and dependency folders.
+## Features
+
+- Guided Nova Expo project creation with SDK, package, and validation choices
+- Automatic Expo project discovery at the workspace root and in monorepos
+- An always-available project switcher for workspace apps or another folder
+- Guided development, build, update, submit, and release-readiness flows
+- Build profiles and project configuration at a glance
+- More than 40 searchable workflows grouped by purpose
+- Cancellable live output for deterministic tasks
+- Real integrated terminals for login, credentials, and other interactive EAS
+  workflows
+- Confirmation before project-changing or remote release operations
+- Retained task output and stop controls for persistent development processes
+- Context-aware failure recovery links in notifications and retained task
+  output
+- Guided next-step notices for dependency installation and EAS onboarding
+- A retained Open Project action when the new-project workflow completes
 
 ## Requirements
 
-- VS Code 1.94 or newer;
-- an Expo project with Node.js and its dependencies installed;
-- Bash on macOS or Linux. On Windows, set `novaExpo.shellPath` to a compatible
-  Git Bash or WSL shell;
-- an Expo account for EAS cloud operations.
+- VS Code 1.94 or newer
+- An Expo project with Node.js and its dependencies installed
+- Bash on macOS or Linux. On Windows, set `novaExpo.shellPath` to a
+  compatible Git Bash or WSL shell
+- An Expo account for EAS cloud operations
 
 The maintained workflow scripts are bundled with the extension. A separate
 toolkit installation is not required.
 
+## Installation
+
+Nova Expo is not yet published to the VS Code Marketplace. Until then, install
+it from a packaged build:
+
+```sh
+git clone https://github.com/karodgers/expo-workflows.git
+cd expo-workflows
+npm install
+npm run package
+npx --yes @vscode/vsce package --no-dependencies -o nova-expo.vsix
+code --install-extension nova-expo.vsix
+```
+
+## Getting started
+
+Open the **Nova Expo** icon in the Activity Bar. The extension finds every
+local `package.json` that declares `expo`, excluding generated and dependency
+folders. Pick a project from the switcher, or use **Create New Project** to
+scaffold one, then work through the dashboard's development, build, update,
+submit, and release-readiness flows.
+
 ## Settings
 
-- `novaExpo.toolkitPath`: optional local `workflows` directory override;
-- `novaExpo.shellPath`: Bash-compatible shell used for workflow execution.
-- `novaExpo.nodePath`: Node.js 22.13+ executable used to create new projects.
+| Setting                | Description                                                                                    | Default |
+| ----------------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `novaExpo.toolkitPath`  | Optional local `workflows` directory override. Machine/remote-scoped only; a relative path is refused. | `""`    |
+| `novaExpo.shellPath`    | Bash-compatible shell used to run Nova Expo workflows.                                          | `bash`  |
+| `novaExpo.nodePath`     | Node.js 22.13+ executable used by the Nova Expo project initializer.                            | `node`  |
 
-Dashboard tasks run deterministically without prompts. Tasks that require a TTY
-always open in VS Code's integrated terminal.
+## Execution model
 
-Nova Expo runs no command in an untrusted or virtual workspace. In an untrusted
-workspace the dashboard still reads the project configuration and explains what
-trusting the workspace unlocks.
+Dashboard tasks run deterministically without prompts. Tasks that require a
+TTY always open in VS Code's integrated terminal.
 
-The maintained execution and validation policy is included in
-`FAILURE-MODES.md`.
+Nova Expo runs no command in an untrusted or virtual workspace. In an
+untrusted workspace the dashboard still reads the project configuration and
+explains what trusting the workspace unlocks.
 
-## Local development
+## Security and privacy
+
+Nova Expo does not collect telemetry. Commands execute locally against the
+active project; Expo and EAS commands communicate with their normal services.
+See [Execution model](#execution-model) above for the workspace-trust and
+confirmation policy that guards remote and project-changing operations.
+
+If you discover a security issue, please open an issue on the
+[issue tracker](https://github.com/karodgers/expo-workflows/issues) rather
+than filing a public report with exploit details.
+
+## Development
 
 ```sh
 npm install
@@ -61,19 +109,34 @@ npm test
 npm run watch
 ```
 
-The extension host code in `src/` and the dashboard webview in `src/webview/`
-are bundled separately, type-checked against different libraries, and share only
-the message contract in `src/webviewProtocol.ts`. `npm test` type-checks both
-before running the unit tests.
+The extension host code in `src/` and the dashboard webview in
+`src/webview/` are bundled separately, type-checked against different
+libraries, and share only the message contract in
+`src/webviewProtocol.ts`. `npm test` type-checks both before running the unit
+tests.
 
 Press **F5** to launch an Extension Development Host. To create an installable
-build, run `npm run package` and then package the directory with `@vscode/vsce`.
+build, run `npm run package` and then package the directory with
+`@vscode/vsce`.
 
-## Privacy
+| Script                | Purpose                                          |
+| ---------------------- | ------------------------------------------------- |
+| `npm run compile`     | Copy workflow scripts and build the extension.   |
+| `npm run watch`       | Rebuild on change during development.            |
+| `npm run check`       | Type-check the extension host and the webview.   |
+| `npm run format`      | Format the repository with Prettier.             |
+| `npm test`            | Type-check, then run the unit and contract tests.|
+| `npm run package`     | Produce a production build.                      |
 
-The extension does not collect telemetry. Commands execute locally against the
-active project; Expo and EAS commands communicate with their normal services.
+## Contributing
+
+Issues and pull requests are welcome. Before opening a pull request:
+
+1. Run `npm test` and `npm run format:check` — CI enforces both.
+2. Keep changes to the webview (`src/webview/`) and the extension host
+   (`src/`) isolated to their message contract in `src/webviewProtocol.ts`.
+3. Update [CHANGELOG.md](CHANGELOG.md) for user-facing changes.
 
 ## License
 
-MIT
+[MIT](LICENSE)

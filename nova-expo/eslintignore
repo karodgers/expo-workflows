@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.expo/
+android/
+ios/
+web-build/
+
+# Cache directories
+.cache/
+
+# Coverage reports
+coverage/
+
+# Generated files
+*.min.js
+*.bundle.js
+*.generated.ts
+*.generated.tsx
+
+# Type declarations (external)
+*.d.ts
+!src/**/*.d.ts
+
+# Metro bundler
+.metro-health-check*
+
+# Expo generated files
+.expo-shared/
+babel.config.js
+metro.config.js
+
+# Git
+.git/
+
+# Logs
+*.log
+
+# Config dotfiles (ESLint ignores by default, but causes lint-staged warnings)
+.prettierrc.js
+.eslintrc.js

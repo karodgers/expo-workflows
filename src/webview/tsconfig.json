@@ -1,0 +1,12 @@
+{
+  // The root tsconfig excludes src/webview, so without a config here an editor
+  // finds no project for these sources and falls back to default compiler
+  // options — DOM-context code then shows errors that `npm run check` does not
+  // report. This mirrors tsconfig.webview.json, which is what the build runs.
+  //
+  // `include` is restated relative to this directory rather than inherited:
+  // paths in an extended config resolve against the file that declared them,
+  // which for the shared config is the package root, not here.
+  "extends": "../../tsconfig.webview.json",
+  "include": ["."]
+}

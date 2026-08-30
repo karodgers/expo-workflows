@@ -38,7 +38,7 @@ base_env=(
 
 ln -s "$ROOT/run.sh" "$FIXTURE/nova-workflows"
 output="$("$FIXTURE/nova-workflows" --version)"
-assert_contains "$output" "1.1.0"
+assert_contains "$output" "$(node -p "require('$ROOT/package.json').version")"
 
 output="$(PROJECT_DIR="$FIXTURE" bash -c 'source "$1/lib/tui.sh"; tui_initialize "$2" "$1" 1; tui_header' _ "$ROOT" "$FIXTURE")"
 assert_contains "$output" "NOVA  / EXPO WORKFLOWS"

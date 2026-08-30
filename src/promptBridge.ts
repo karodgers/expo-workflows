@@ -40,11 +40,6 @@ interface PendingPrompt {
 export class PromptBridge {
   private pending: PendingPrompt | undefined;
 
-  /**
-   * True while a question is waiting for an answer. The provider consults this
-   * before clearing the prompt screen, so the cleanup of a superseded flow
-   * cannot dismiss the question that replaced it.
-   */
   get hasPendingPrompt(): boolean {
     return this.pending !== undefined;
   }
@@ -138,8 +133,6 @@ export class PromptBridge {
   private cancelPending(): void {
     const prompt = this.pending;
     if (!prompt) return;
-    // Cleared before resolving so a continuation that immediately asks another
-    // question cannot see the prompt it is replacing.
     this.pending = undefined;
     prompt.resolve(undefined);
   }

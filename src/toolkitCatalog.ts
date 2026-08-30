@@ -14,25 +14,11 @@ export interface ToolkitAction {
   script: string;
   args: string[];
   label: string;
-  /** One line, for the row in a list. */
   description: string;
   icon: string;
-  /**
-   * What this action does, in the user's terms, shown before it runs.
-   *
-   * Required rather than optional: an action nobody wrote an explanation for is
-   * one a user is asked to take on trust, and the review screen exists to make
-   * that unnecessary. The type is what keeps a new entry from skipping it.
-   */
   explanation: string;
-  /**
-   * What the action touches. A read-only action lists what it reads, so the
-   * list is never empty and the screen never has to guess a heading.
-   */
   effects: string[];
-  /** Expo or EAS documentation for the concept behind this action. */
   docsUrl: string;
-  /** Present when the action changes local files, remote state, or costs money. */
   confirm?: string;
   interactive?: boolean;
   confirmationLabel?: string;

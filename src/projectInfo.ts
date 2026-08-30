@@ -19,11 +19,6 @@ export interface ExpoProjectInfo {
   iosBundleIdentifier?: string;
   projectId?: string;
   configFile?: string;
-  /**
-   * The active config is a dynamic one that Nova's variant setup wrote, so it
-   * may safely be regenerated. A dynamic config without this marker is somebody
-   * else's logic and is never rewritten.
-   */
   hasGeneratedConfig: boolean;
   packageManager?: 'npm' | 'pnpm' | 'yarn' | 'bun';
   hasDependencies: boolean;
@@ -133,11 +128,7 @@ export function readExpoProjectInfo(
   if (!expoVersion) return undefined;
 
   // Expo's own precedence: a dynamic config wins, and app.json is only the
-  // static base it receives. Listing app.json first meant that a project which
-  // had run variant setup — which writes app.config.js next to app.json —
-  // reported the file that no longer decides its identifiers, and so opened the
-  // wrong file, skipped the dynamic-config notice, and offered the wrong
-  // correction when an identifier was missing.
+  // static base it receives.
   const configFile = firstExistingFile(root, [
     'app.config.ts',
     'app.config.js',

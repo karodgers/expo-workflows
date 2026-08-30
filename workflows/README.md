@@ -4,13 +4,27 @@ One guided assistant plus small Bash entry points for Expo CLI and Expo
 Application Services. Every script runs against any Expo project; nothing is
 tied to `nova-expo`.
 
+## Requirements
+
+Node.js 22.13 or newer and a Bash-compatible shell. Every entry point is a Bash
+script, so on Windows run the toolkit from Git Bash or WSL: the global shim npm
+installs resolves the `#!/usr/bin/env bash` shebang and needs `bash` on `PATH`.
+
 ## Quick start
 
-Install the assistant once from the toolkit repository:
+Install the assistant once from npm:
 
 ```sh
-./install.sh
+npm install --global nova-expo-workflows
 ```
+
+Or run it without installing anything:
+
+```sh
+npx nova-expo-workflows
+```
+
+To work from a clone of this repository instead, run `./install.sh`.
 
 Then use it from any Nova Expo project:
 

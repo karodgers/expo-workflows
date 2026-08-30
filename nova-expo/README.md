@@ -10,7 +10,17 @@ transition periods cannot silently create an older project.
 
 ## Install globally
 
-From this repository:
+```sh
+npm install --global create-nova-expo-app
+```
+
+Or scaffold a project without installing anything:
+
+```sh
+npm create nova-expo-app my-app
+```
+
+To work from a clone of this repository instead:
 
 ```sh
 npm install

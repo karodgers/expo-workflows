@@ -16,14 +16,7 @@ const IGNORED_DIRECTORIES = '**/{node_modules,.git,.expo,android,ios,dist,build,
  */
 const MAX_PACKAGE_FILES = 200;
 
-/**
- * Finds every Expo app in the workspace by reading each package manifest.
- *
- * `readExpoProjectInfo` returns undefined for a package that does not declare
- * Expo, so a monorepo's libraries and tooling packages drop out here and only
- * runnable apps are offered. Results are sorted by name, then path, so the
- * ordering is stable across scans and the default selection does not move.
- */
+// Finds every Expo app in the workspace by reading each package manifest.
 export async function discoverExpoProjects(): Promise<ExpoProjectInfo[]> {
   const folders = vscode.workspace.workspaceFolders;
   if (!folders?.length) return [];

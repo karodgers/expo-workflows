@@ -6,21 +6,11 @@
  * both are checked here before anything is spawned.
  */
 
-/**
- * Options the shared workflow runtime and the release gate consume before a
- * script sees them. The extension always supplies these itself, so their
- * presence in a prepared argument list means a user-entered value was parsed as
- * a flag — which could silently redirect the project directory, turn a release
- * command into a no-op dry run, or switch off the gate that checks it.
- */
 const RESERVED_TOOLKIT_FLAGS = [
   '--project',
   '--dry-run',
   '--non-interactive',
   '--interactive',
-  // The readiness gate's own options. `--allow-dirty` is the one flag that
-  // turns the release gate off, and the extension only ever adds it after a
-  // separate, explicitly worded confirmation.
   '--allow-dirty',
   '--full',
 ];

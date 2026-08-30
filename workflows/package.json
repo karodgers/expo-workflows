@@ -1,7 +1,16 @@
 {
   "name": "nova-expo-workflows",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "Guided Expo and EAS workflow automation for Nova projects.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karodgers/expo-workflows.git",
+    "directory": "workflows"
+  },
+  "bugs": {
+    "url": "https://github.com/karodgers/expo-workflows/issues"
+  },
+  "homepage": "https://github.com/karodgers/expo-workflows/tree/main/workflows#readme",
   "bin": {
     "nova-workflows": "./run.sh"
   },

@@ -440,11 +440,6 @@ export function classifyFailure(context: FailureContext): RecoveryAction[] {
     add(RECOVERIES.login);
 
   if (suggestions.length === 0) {
-    // Nothing in the table matched, which is exactly when a user is most stuck.
-    // A health check and the documentation for the operation that failed are
-    // the two things worth doing next regardless of the cause.
-    // Suggesting a health check after the health check itself failed would be
-    // a loop, so that one case goes straight to the documentation.
     if (context.script !== 'doctor.sh') add(RECOVERIES.checkProjectHealth);
     const docs = documentationFor(context) ?? 'https://docs.expo.dev/';
     add({ ...RECOVERIES.readDocumentation, args: [docs], docsUrl: docs });

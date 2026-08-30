@@ -1,7 +1,16 @@
 {
   "name": "create-nova-expo-app",
-  "version": "1.1.3",
+  "version": "1.0.0",
   "description": "Initialize a production-ready Expo project with Nova's standard dependency stack.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karodgers/expo-workflows.git",
+    "directory": "nova-expo"
+  },
+  "bugs": {
+    "url": "https://github.com/karodgers/expo-workflows/issues"
+  },
+  "homepage": "https://github.com/karodgers/expo-workflows/tree/main/nova-expo#readme",
   "type": "commonjs",
   "bin": {
     "nova-expo": "./bin/nova-expo.js"

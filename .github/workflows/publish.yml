@@ -1,0 +1,89 @@
+name: Publish
+
+# Publishes the two npm packages vendored in this repository.
+
+on:
+  push:
+    tags:
+      - 'nova-expo-workflows-v*'
+      - 'create-nova-expo-app-v*'
+  # Re-run a release by hand if a tag push failed after the tag already landed.
+  workflow_dispatch:
+    inputs:
+      package:
+        description: Package to publish
+        required: true
+        type: choice
+        options:
+          - nova-expo-workflows
+          - create-nova-expo-app
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Lets the runner mint the OIDC token npm exchanges for publish rights.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Trusted publishing needs Node 22.14+ and npm 11.5.1+. Node 24
+          # bundles a new enough npm, so nothing here upgrades it separately.
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          # A release build resolves everything from the registry rather than
+          # from a cache that a previous run populated.
+          package-manager-cache: false
+
+      # Maps the release to a directory. Tag pushes carry the package name as
+      # the tag prefix; a manual run names it directly.
+      - name: Resolve target package
+        id: target
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = workflow_dispatch ]; then
+            name="${{ inputs.package }}"
+          else
+            name="${GITHUB_REF_NAME%-v*}"
+          fi
+          case "$name" in
+            nova-expo-workflows) dir=workflows ;;
+            create-nova-expo-app) dir=nova-expo ;;
+            *) echo "::error::Unrecognized package '$name'"; exit 1 ;;
+          esac
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"
+          echo "Publishing $name from $dir/"
+
+      # A tag that disagrees with package.json would publish a version nobody
+      # can find from the tag, so fail before anything reaches the registry.
+      - name: Check the tag matches package.json
+        if: github.event_name == 'push'
+        working-directory: ${{ steps.target.outputs.dir }}
+        run: |
+          set -euo pipefail
+          tagged="${GITHUB_REF_NAME##*-v}"
+          declared="$(node -p 'require("./package.json").version')"
+          if [ "$tagged" != "$declared" ]; then
+            echo "::error::Tag says $tagged but package.json says $declared"
+            exit 1
+          fi
+          echo "Version $declared matches the tag"
+
+      # Neither package declares dependencies, so there is nothing to install:
+      # validate runs the shell/syntax checks and the package's own test suite.
+      - name: Validate
+        working-directory: ${{ steps.target.outputs.dir }}
+        run: npm run validate
+
+      # Provenance is attached automatically for a public package published
+      # from a public repository over OIDC; --provenance would be redundant.
+      - name: Publish
+        working-directory: ${{ steps.target.outputs.dir }}
+        run: npm publish
